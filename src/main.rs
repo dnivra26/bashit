@@ -50,17 +50,11 @@ struct Config {
 
 impl Config {
     fn from_env() -> Result<Self, String> {
-        let api_key = std::env::var("BASHIT_API_KEY")
-            .or_else(|_| std::env::var("OPENAI_API_KEY"))
-            .map_err(|_| {
-                "missing API key: set BASHIT_API_KEY (or OPENAI_API_KEY)".to_string()
-            })?;
-        let base_url = std::env::var("BASHIT_BASE_URL")
-            .or_else(|_| std::env::var("OPENAI_BASE_URL"))
-            .unwrap_or_else(|_| DEFAULT_BASE_URL.to_string());
-        let model = std::env::var("BASHIT_MODEL")
-            .or_else(|_| std::env::var("OPENAI_MODEL"))
-            .unwrap_or_else(|_| DEFAULT_MODEL.to_string());
+        let api_key = std::env::var("OPENAI_API_KEY")
+            .map_err(|_| "missing API key: set OPENAI_API_KEY".to_string())?;
+        let base_url =
+            std::env::var("OPENAI_BASE_URL").unwrap_or_else(|_| DEFAULT_BASE_URL.to_string());
+        let model = std::env::var("OPENAI_MODEL").unwrap_or_else(|_| DEFAULT_MODEL.to_string());
         Ok(Self { base_url, model, api_key })
     }
 }

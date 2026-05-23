@@ -28,16 +28,16 @@ Reload (`source ~/.zshrc` or open a new shell) and you're set. Ctrl+G replaces t
 
 ## Configure
 
-Set via env vars (the `OPENAI_*` names are accepted as fallbacks):
+Set via env vars:
 
 | Variable           | Default                       | Required |
 |--------------------|-------------------------------|----------|
-| `BASHIT_API_KEY`   | —                             | yes      |
-| `BASHIT_BASE_URL`  | `https://api.openai.com/v1`   | no       |
-| `BASHIT_MODEL`     | `gpt-4o-mini`                 | no       |
+| `OPENAI_API_KEY`   | —                             | yes      |
+| `OPENAI_BASE_URL`  | `https://api.openai.com/v1`   | no       |
+| `OPENAI_MODEL`     | `gpt-4o-mini`                 | no       |
 
 ```sh
-export BASHIT_API_KEY=sk-...
+export OPENAI_API_KEY=sk-...
 ```
 
 ## Pipe / CLI usage
