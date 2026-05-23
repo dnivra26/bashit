@@ -37,18 +37,7 @@ Set via env vars (the `OPENAI_*` names are accepted as fallbacks):
 | `BASHIT_MODEL`     | `gpt-4o-mini`                 | no       |
 
 ```sh
-# OpenAI
 export BASHIT_API_KEY=sk-...
-
-# Local Ollama
-export BASHIT_BASE_URL=http://localhost:11434/v1
-export BASHIT_MODEL=llama3.1
-export BASHIT_API_KEY=ollama   # any non-empty string
-
-# Groq
-export BASHIT_BASE_URL=https://api.groq.com/openai/v1
-export BASHIT_MODEL=llama-3.3-70b-versatile
-export BASHIT_API_KEY=gsk_...
 ```
 
 ## Pipe / CLI usage
