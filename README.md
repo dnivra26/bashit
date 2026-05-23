@@ -1,32 +1,40 @@
 # bashit
 
-Translate natural language into a shell command. Prints the command, doesn't run it.
+Type natural language in your terminal, press **Ctrl+G**, and the line becomes a shell command. It never runs the command for you — you press Enter when you're ready.
 
 ```
-$ bashit list all files in this directory sorted by time
-ls -ltr
+$ list all files in this directory sorted by time   ← type, then Ctrl+G
+$ ls -ltr                                            ← line is replaced
 ```
 
 Works with any OpenAI-compatible `/chat/completions` endpoint (OpenAI, Ollama, vLLM, Together, Groq, etc.).
 
 ## Install
 
-```
+```sh
 cargo build --release
 ln -s "$PWD/target/release/bashit" /opt/homebrew/bin/bashit   # or anywhere on PATH
 ```
 
+Then add to `~/.zshrc`:
+
+```sh
+source /path/to/bashit/shell/bashit.zsh
+```
+
+Reload (`source ~/.zshrc` or open a new shell) and you're set. Ctrl+G replaces the current line in place; errors (missing key, network, quota) show up under the prompt and your typed text is preserved.
+
+> `Ctrl+G` is bound to `send-break` by default in zsh. Rebinding is harmless but you lose that. Want a different key? Edit `shell/bashit.zsh` — e.g. `bindkey '^[g' bashit-widget` for Alt+G, or `bindkey '^Xg' bashit-widget` for the chord Ctrl+X G.
+
 ## Configure
 
-Set via env vars (the `OPENAI_*` names are also accepted as fallbacks):
+Set via env vars (the `OPENAI_*` names are accepted as fallbacks):
 
 | Variable           | Default                       | Required |
 |--------------------|-------------------------------|----------|
 | `BASHIT_API_KEY`   | —                             | yes      |
 | `BASHIT_BASE_URL`  | `https://api.openai.com/v1`   | no       |
 | `BASHIT_MODEL`     | `gpt-4o-mini`                 | no       |
-
-Examples:
 
 ```sh
 # OpenAI
@@ -43,36 +51,12 @@ export BASHIT_MODEL=llama-3.3-70b-versatile
 export BASHIT_API_KEY=gsk_...
 ```
 
-## Usage
+## Pipe / CLI usage
 
-Args or stdin — both work:
+The Ctrl+G widget is the main way to use this. But the `bashit` binary also works as a plain CLI if you want to script with it:
 
 ```sh
 bashit find files larger than 100MB under home
 echo "kill the process listening on port 8080" | bashit
+$(bashit list all files sorted by size)   # run the result
 ```
-
-Output is a single command on stdout. Use `$(...)` if you want to run it:
-
-```sh
-$(bashit list all files sorted by size)
-```
-
-## Shell integration (zsh): replace the line in place
-
-Source the widget from `~/.zshrc`:
-
-```sh
-source /path/to/bashit/shell/bashit.zsh
-```
-
-Type a natural-language prompt, press **Ctrl+G**, and the line is replaced with the translated command. Nothing runs until you press Enter, so you can edit it first.
-
-```
-$ list all files in this directory sorted by time   ← type this, then Ctrl+G
-$ ls -ltr                                            ← line becomes this
-```
-
-Errors (missing API key, network failure, quota) appear as a one-line message under the prompt; your typed text is preserved.
-
-> Note: `Ctrl+G` is bound to `send-break` by default in zsh. Rebinding it is harmless but you'll lose that. Edit `shell/bashit.zsh` to pick a different key (e.g. `bindkey '^[g' bashit-widget` for Alt+G).
