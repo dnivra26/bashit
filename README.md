@@ -2,10 +2,7 @@
 
 Type natural language in your terminal, press **Ctrl+G**, and the line becomes a shell command. It never runs the command for you — you press Enter when you're ready.
 
-```
-$ list all files in this directory sorted by time   ← type, then Ctrl+G
-$ ls -ltr                                            ← line is replaced
-```
+![demo](docs/demo.gif)
 
 Works with any OpenAI-compatible `/chat/completions` endpoint (OpenAI, Ollama, vLLM, Together, Groq, etc.).
 
