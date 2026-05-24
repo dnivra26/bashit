@@ -2,6 +2,9 @@
 name = "bashit"
 version = "0.1.0"
 edition = "2024"
+description = "Translate natural language into a shell command and replace the line in place"
+repository = "https://github.com/dnivra26/bashit"
+license = "MIT"
 
 [dependencies]
 reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }

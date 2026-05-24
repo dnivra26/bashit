@@ -8,15 +8,33 @@ Works with any OpenAI-compatible `/chat/completions` endpoint (OpenAI, Ollama, v
 
 ## Install
 
+**Homebrew** (macOS, Linux):
+
 ```sh
-cargo build --release
-ln -s "$PWD/target/release/bashit" /opt/homebrew/bin/bashit   # or anywhere on PATH
+brew install dnivra26/tap/bashit
 ```
 
-Then add to `~/.zshrc`:
+**Curl installer** (macOS, Linux — no brew required):
 
 ```sh
-source /path/to/bashit/shell/bashit.zsh
+curl -fsSL https://raw.githubusercontent.com/dnivra26/bashit/main/install.sh | sh
+```
+
+**From source** (requires Rust):
+
+```sh
+git clone https://github.com/dnivra26/bashit && cd bashit
+cargo install --path .
+```
+
+Then enable the Ctrl+G widget by adding this to `~/.zshrc`:
+
+```sh
+# brew install:           /opt/homebrew/share/bashit/bashit.zsh  (Apple Silicon)
+#                         /usr/local/share/bashit/bashit.zsh     (Intel / Linux)
+# curl install (default): /usr/local/share/bashit/bashit.zsh
+# from source:            <repo>/shell/bashit.zsh
+source /usr/local/share/bashit/bashit.zsh
 ```
 
 Reload (`source ~/.zshrc` or open a new shell) and you're set. Ctrl+G replaces the current line in place; errors (missing key, network, quota) show up under the prompt and your typed text is preserved.
